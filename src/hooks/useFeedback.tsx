@@ -29,6 +29,12 @@ export const useFeedback = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const [deleted, setDeleted] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [updating, setUpdating] = useState(false);
+  const [updated, setUpdated] = useState(false);
+  const [updateError, setUpdateError] = useState<string | null>(null);
 
   /**
    * Fetches testimonials from the API.
@@ -97,11 +103,69 @@ export const useFeedback = () => {
       setIsLoading(false);
     }
   }, [fetchTestimonials]); // Depends on the stable fetchTestimonials function
+  // update testimonial
+  const updateTestimonial = async (testimonial: Testimonial) => {
+    setUpdating(true);
+    setUpdateError(null);
+    console.log('updateTestimonial')
+    console.log(testimonial)
+    try {
+      const response = await fetch(`https://crypto-invest-backend-1.onrender.com/api/v1/feedback`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(testimonial),
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to update testimonial. Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('Updated Successfully',data)
+      setUpdating(false);
+      setUpdated(true);
+      // On success, refetch the entire list to ensure data consistency.
+      await fetchTestimonials();
+    } catch (err) {
+      setUpdateError(err instanceof Error ? err.message : "Failed to update testimonial.");
+      // In case of error, we still need to stop the loading indicator.
+      setUpdating(false);
+    }
+  }
+    
+
+  // deletetestimonial
+  const deleteTestimonial = async (id: number) => {
+    setDeleting(true);
+    setDeleteError(null);
+    console.log('deleteTestimonial')
+    console.log(id)
+    try {
+      const response = await fetch(`https://crypto-invest-backend-1.onrender.com/api/v1/feedback/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to delete testimonial. Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('Deleted Successfully',data)
+      setDeleting(false);
+      setDeleted(true);
+      // On success, refetch the entire list to ensure data consistency.
+      await fetchTestimonials();
+    } catch (err) {
+      setDeleteError(err instanceof Error ? err.message : "Failed to delete testimonial.");
+      // In case of error, we still need to stop the loading indicator.
+      setDeleting(false);
+    }
+  }
+
+
 
   // Fetch the testimonials when the component mounts.
   useEffect(() => {
     fetchTestimonials();
   }, [fetchTestimonials]); // The dependency is a stable function thanks to useCallback.
 
-  return { testimonials, isLoading, error, addTestimonial };
+  return { testimonials, isLoading, error, addTestimonial, deleteTestimonial, deleting, deleted, deleteError, updateTestimonial, updating, updated, updateError };
 };

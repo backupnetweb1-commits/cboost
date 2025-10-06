@@ -99,15 +99,15 @@ const Referring = () => {
   };
 
   useEffect(() => {
-    if (!user?.id) return;
+    if (!user?.uid) return;
     console.log("Fetching referral data for user:", user);
 
     const fetchReferralData = async () => {
       try {
         setLoading(true);
-        console.log("Fetching referral data for user:", user.id);
+        console.log("Fetching referral data for user:", user.uid);
         
-        const response = await axios.get(`https://crypto-invest-backend-1.onrender.com/api/referrals/user/${user.id}`); //make sure you change this to the live server url casue this is mine
+        const response = await axios.get(`https://crypto-invest-backend-1.onrender.com/api/referrals/user/${user.uid}`); //make sure you change this to the live server url casue this is mine
         const data = response.data;
 
         console.log("Referral API response:", data);
@@ -165,7 +165,7 @@ const Referring = () => {
     };
 
     fetchReferralData();
-  }, [user?.id, toast]);
+  }, [user?.uid, toast]);
 
   // Filter users based on active tab
   const filteredUsers = activeTab === "all" 

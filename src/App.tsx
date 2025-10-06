@@ -44,24 +44,29 @@ const App = () => {
             {/* Public Routes */}
             <Route path="/auth/:ref" element={<Authentication />} />
             <Route path="/auth" element={<Authentication />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/feedback" element={<Feedback />} />
+            <Route path="/investment" element={<Investment />} />
+            <Route path="/referring" element={<Referring />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/support" element={<Support />} />
+            <Route path="/employment" element={<Employment />} />
+            <Route path="/loans" element={<LoanPage />} />
+            <Route path="/uploaddoc" element={<Uploard />} />
+            <Route path="/market" element={<ReferralMarket />} />
+
+
+
             {/* Protected Routes - All wrapped inside a single ProtectedRoute component */}
             <Route element={<ProtectedRoute />}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/investment" element={<Investment />} />
               <Route path="/transaction" element={<WalletPage />} />
-              <Route path="/shop" element={<Shop />} />
-              <Route path="/referring" element={<Referring />} />
               <Route path="/buy-crypto" element={<BuyCrypto />} />
-              <Route path="/feedback" element={<Feedback />} />
-              <Route path="/blog" element={<Blog />} />
               <Route path="/support" element={<Support />} />
               <Route path="/employment" element={<Employment />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="/loans" element={<LoanPage />} />
-              <Route path="/market" element={<ReferralMarket />} />
               <Route path="/admin-dashboard" element={<AdminPortal />} />
               <Route path="/user-dashboard" element={<UserDashboard />} />
-              <Route path="/uploaddoc" element={<Uploard />} />
             </Route>
             {/* Catch-all route for 404 Not Found pages */}
             <Route path="*" element={<NotFound />} />

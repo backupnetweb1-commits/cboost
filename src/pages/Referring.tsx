@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {Link} from 'react-router-dom'
 import { 
   Users, 
   DollarSign, 
@@ -47,7 +48,7 @@ const Referring = () => {
     earnings: {1: 0, 2: 0, 3: 0} 
   });
   const [referredUsers, setReferredUsers] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("all");
   const baseURL = window.location.origin;
 
@@ -98,14 +99,15 @@ const Referring = () => {
   };
 
   useEffect(() => {
-    if (!user?.uid) return;
+    if (!user?.id) return;
+    console.log("Fetching referral data for user:", user);
 
     const fetchReferralData = async () => {
       try {
         setLoading(true);
-        console.log("Fetching referral data for user:", user.uid);
+        console.log("Fetching referral data for user:", user.id);
         
-        const response = await axios.get(`https://crypto-invest-backend-1.onrender.com/api/referrals/user/${user.uid}`); //make sure you change this to the live server url casue this is mine
+        const response = await axios.get(`https://crypto-invest-backend-1.onrender.com/api/referrals/user/${user.id}`); //make sure you change this to the live server url casue this is mine
         const data = response.data;
 
         console.log("Referral API response:", data);
@@ -163,7 +165,7 @@ const Referring = () => {
     };
 
     fetchReferralData();
-  }, [user?.uid, toast]);
+  }, [user?.id, toast]);
 
   // Filter users based on active tab
   const filteredUsers = activeTab === "all" 
@@ -173,8 +175,8 @@ const Referring = () => {
   if (loading) {
     return (
       <Layout>
-        <div className="min-h-screen py-12 flex items-center justify-center">
-          <div className="text-center">
+        <div className="min-h-screen  py-12 flex items-center justify-center">
+          <div className="text-center ">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
             <p className="text-muted-foreground">Loading your referral empire...</p>
           </div>
@@ -182,7 +184,65 @@ const Referring = () => {
       </Layout>
     );
   }
+if(!user){
+  return (
+    <Layout>
+      <div className="min-h-screen py-12  flex max-md:flex-col items-start justify-center">
+        <div className="text-center bg-blue-500 p-8 rounded-lg m-2">
+          <p className="text-white">Join Referal Program</p>
+          <Link to={'/auth'}>
+                <Button variant="default" size="lg">Sign In to Join</Button>
 
+          </Link>
+        </div>
+         <div className="lg:col-span-2 space-y-6">
+              {referralTiers.map(tier => (
+                <Card key={tier.tier} className={`border-2 bg-gradient-to-br from-background to-background/50 backdrop-blur-sm ${tier.color} hover:shadow-2xl transition-all duration-300`}>
+                  <CardHeader className="flex flex-row justify-between items-center pb-4">
+                    <div className="flex items-center space-x-4">
+                      <div className={`p-3 bg-gradient-to-r ${tier.gradient} rounded-full`}>
+                        <tier.icon className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xl flex items-center">
+                          Tier {tier.tier}
+                          {tier.tier === 1 && <Crown className="w-4 h-4 ml-2 text-yellow-500" />}
+                        </CardTitle>
+                        <CardDescription>{tier.requirements}</CardDescription>
+                      </div>
+                    </div>
+                    <Badge className={`bg-gradient-to-r ${tier.gradient} text-white px-3 py-1 text-sm`}>
+                      {tier.commission}% Commission
+                    </Badge>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground mb-4 text-sm">{tier.description}</p>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-background/50 p-3 rounded-lg">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">Referrals</span>
+                          <Users className="w-4 h-4 text-blue-500" />
+                        </div>
+                        <p className="text-lg font-bold text-foreground mt-1">{tierStats[tier.tier]}</p>
+                      </div>
+                      <div className="bg-background/50 p-3 rounded-lg">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">Earnings</span>
+                          <DollarSign className="w-4 h-4 text-green-500" />
+                        </div>
+                        <p className="text-lg font-bold text-green-600 mt-1">
+                          ${(tierStats.earnings?.[tier.tier] || 0).toFixed(2)}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+      </div>
+      </Layout>
+      )
+}
   return (
     <Layout>
       <div className="min-h-screen py-12 bg-gradient-to-b from-background to-muted/20">

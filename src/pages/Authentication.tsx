@@ -10,6 +10,8 @@ import { useAuth } from '@/hooks/useAuth';
 import { useParams,useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+
+
 const Authentication = () => {
     const { t } = useTranslation();
     const { ref } = useParams()

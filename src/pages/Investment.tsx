@@ -22,6 +22,9 @@ import { useTranslation } from "react-i18next";
 import PaymentModal from "@/components/PaymentModal";
 import { useTransactions, InvestmentPlan } from "@/hooks/useTransactions";
 import { useToast } from "@/hooks/use-toast";
+import AuthenticationDialog from "@/components/ui/auth_dialog";
+import { useAuth } from "@/hooks/useAuth";
+import { set } from "date-fns";
 
 const Investment = () => {
   const { t } = useTranslation();
@@ -29,6 +32,7 @@ const Investment = () => {
   const [selectedPlan, setSelectedPlan] = useState<InvestmentPlan | null>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [initialLoading, setInitialLoading] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
   const {
     makeInvestment,
     investmentPlans,
@@ -40,6 +44,7 @@ const Investment = () => {
     withdraw,
   } = useTransactions();
   const { toast } = useToast();
+  const { user } = useAuth();
 
   // fallback plans if no data
   const plans: InvestmentPlan[] =
@@ -69,6 +74,10 @@ const Investment = () => {
   const handleInvestment = async (planId: string, amount: number) => {
     setInitialLoading(true);
     try {
+      if(!user){
+        setAuthModalOpen(true);
+        return;
+      }
       const result = await makeInvestment(planId, amount);
       if (!result) {
         toast({
@@ -254,6 +263,12 @@ const Investment = () => {
           planAmount={selectedPlan.amount}
         />
       )}
+
+      {/* Authentication Dialog */}
+      <AuthenticationDialog
+        open={authModalOpen}
+        onOpenChange={() => setAuthModalOpen(false)}
+      />
     </Layout>
   );
 };

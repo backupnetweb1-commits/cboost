@@ -101,7 +101,7 @@ const Shop = () => {
           </div>
 
           {/* Stats Bar */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
+          {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
             <Card className="bg-gradient-card border-border/50">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-2">
@@ -146,9 +146,21 @@ const Shop = () => {
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </div> */}
 
           {/* Mining Machines Grid */}
+          {
+            error && (
+
+              <Card>
+                <CardContent className="p-4">
+                  <p className="text-center text-red-500">{error}</p>
+                </CardContent>
+
+              </Card>
+
+            )
+          }
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {machines.map((machine) => (
               <Card key={machine.id} className="relative overflow-hidden transition-all duration-300 hover:scale-105 bg-gradient-card border-border/50">

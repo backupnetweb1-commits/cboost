@@ -5,6 +5,7 @@ import { TrendingUp, Shield, Users, Zap, Star, DollarSign, MessageCircle, Briefc
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { useTranslation } from "react-i18next";
+import { AnimatedNumber } from "@/components/ui/animation_number";
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -36,15 +37,15 @@ const HomePage = () => {
   ];
 
   const stats = [
-    { label: t("total_invested"), value: "$2.4M+", icon: DollarSign },
+    { label: t("total_invested"), value: "2.4", icon: DollarSign },
     { label: t("active_users"), value: "15,847", icon: Users },
     { label: t("success_rate"), value: "98.7%", icon: Star },
-    { label: t("daily_payouts"), value: "$45K+", icon: TrendingUp }
+    { label: t("daily_payouts"), value: "45", icon: TrendingUp }
   ];
 
   return (
     <Layout>
-      <div className="min-h-screen bg-[url('/images/logo/cb_logo.jpeg')] bg-cover bg-no-repeat bg-center">
+      <div className="min-h-screen bg-[url('/images/logo/cb_logo.png')]  bg-center">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20 lg:py-32">
           <div className="absolute inset-0 bg-black/70" />
@@ -84,7 +85,9 @@ const HomePage = () => {
                   <Card key={index} className="bg-gradient-card border-border/50 backdrop-blur-sm">
                     <CardContent className="p-4 text-center">
                       <stat.icon className="w-6 h-6 text-primary mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+                      <div className="text-2xl font-bold text-foreground">
+                        <AnimatedNumber value={stat.value} />
+                      </div>
                       <div className="text-sm text-muted-foreground">{stat.label}</div>
                     </CardContent>
                   </Card>

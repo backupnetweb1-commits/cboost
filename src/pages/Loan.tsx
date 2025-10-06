@@ -18,6 +18,7 @@ import {
 
 import { CheckCircle, Info, Users, DollarSign, TrendingUp, ArrowRight, Copy, Check } from "lucide-react";
 import { Link } from "react-router-dom";
+import AuthenticationDialog from "@/components/ui/auth_dialog";
 
 const MIN_LOAN = 100;
 const MAX_LOAN = 100000;
@@ -29,6 +30,7 @@ const generatLoanId = () => {
 
 const LoanPage = () => {
   const { user } = useAuth();
+  
   const { toast } = useToast();
   const { loading, error, numberOfReferrals, loanLoading, loans, looanRequest } = useLoans();
   const { t } = useTranslation();
@@ -37,6 +39,7 @@ const LoanPage = () => {
   const [loanSuccess, setLoanSuccess] = useState("");
   const [showDialog, setShowDialog] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [showAuthenticationDialog, setShowAuthenticationDialog] = useState(false);
 
   const baseURL = window.location.origin;
 
@@ -103,9 +106,11 @@ const LoanPage = () => {
 
   useEffect(() => {
 
-    if (!hasCollateral) {
+    if (!hasCollateral && user) {
       setShowDialog(true)
       console.log('show dialog')
+    } else {
+      setShowAuthenticationDialog(true)
     }
   }, [hasCollateral]);
   console.log('Has collateral', hasCollateral)
@@ -243,6 +248,10 @@ const LoanPage = () => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
+      <AuthenticationDialog
+       open={showAuthenticationDialog}
+       handleClose={setShowAuthenticationDialog}
+      />
     </Layout>
   );
 };

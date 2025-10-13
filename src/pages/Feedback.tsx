@@ -141,7 +141,7 @@ if(error || payoutError){
           </div>
 
           {/* Admin Controls */}
-          <div className="flex justify-end mb-6">
+          {/* <div className="flex justify-end mb-6">
             <Button 
               onClick={() => setIsEditing(!isEditing)}
               variant={isEditing ? "default" : "outline"}
@@ -156,7 +156,7 @@ if(error || payoutError){
                 {t('add_testimonial')}
               </Button>
             )}
-          </div>
+          </div> */}
 
           {/* User Testimonials */}
           <div className="mb-16">

@@ -110,10 +110,20 @@
   "create_account" : "Create Account",
   "welcome_back": "Welcome Back",
   "login": "Login",
-  "user_feedback_testimonials": "User Feedback & Testimonials",
-  "what_our_users_say": "What Our Users Say",
-      "success_stories_testimonials": "Success Stories & Testimonials",
-              "real_feedback_desc": "Real feedback from real users who have had success with our platform. Join thousands of satisfied investors today."
+  "crypto_investment_plans": "Crypto Investment Plans",
+  "invest_in_your_future": "Invest in Your Future",
+  "investment_header_desc": "Choose a plan and start earning passive income with secure crypto investments.",
+  "starter_plan": "Starter Plan",
+  "growth_plan": "Growth Plan",
+  "roi_10": "10% ROI",
+  "duration_3_days": "Duration: 3 days",
+  "basic_support": "Basic Support",
+  "priority_support": "Priority Support",
+  "roi_in_days": "{{roi}}% ROI in {{days}} days",
+  "live_example_earnings": "Live Example Earnings",
+  "live": "Live",
+  "expected": "Expected",
+  "invest_now": "Invest Now"
 
 
 }

@@ -28,6 +28,8 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Link } from "react-router-dom";
+const baseURL = window.location.origin;
 
 // Mock data (replace with API calls)
 const btcAddresses = [
@@ -268,18 +270,18 @@ const ReferralMarket: React.FC = () => {
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
                             <DialogTitle>QR Code</DialogTitle>
-                            <DialogDescription>
-                                Scan the QR code to buy the referral. Send succesful transactions screenshots to <Button variant="link" size="sm" className="text-blue-500" onClick={() => window.open(`https://t.me/Cryptoboost2016?text=User Referral Code: ${user['referralCode']}`, "_blank")}>https://t.me/Cryptoboost2016</Button> for a custom referral link.
+                            <DialogDescription className="text-center">
+                                Scan the QR code to buy the referral. Send succesful transactions screenshots to <Link to={'/uploaddoc'}  className="text-blue-500">Uploard</Link> for a custom referral link.
                             </DialogDescription>
                         </DialogHeader>
-                        <div className="w-full flex justify-center gap-2">
+                        {/* <div className="w-full flex justify-center gap-2">
                             <Plus className="w-6 h-6 text-green-600" onClick={() => setNumberOfReferrals(numberOfReferrals + 1)} />
                             <span className="text-sm text-muted-foreground mt-1"># of referrals: {numberOfReferrals}</span>
                             <Minus className="w-6 h-6 text-red-600" onClick={() => setNumberOfReferrals(numberOfReferrals - 1)} />
-                        </div>
+                        </div> */}
                         {selected && (
                             <div className="flex flex-col items-center p-4">
-                                <div className="p-2 border rounded-lg mb-4">
+                                <div className="p-2 border bg-white rounded-lg mb-4">
                                     <QRCodeSVG value={selected.address} size={200} />
                                 </div>
                                 <p className="mt-2 text-xs font-mono break-all text-center">
@@ -299,6 +301,8 @@ const ReferralMarket: React.FC = () => {
                                 </div>
                             </div>
                         )}
+                                                            {/* <input type="file"/> */}
+
                     </DialogContent>
                 </Dialog>
             </div>

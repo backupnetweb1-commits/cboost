@@ -134,9 +134,20 @@
     "create_account": "Créer un compte",
     "welcome_back": "Bienvenue à nouveau",
     "login": "Se connecter",
-    "user_feedback_testimonials": "Témoignages et avis des utilisateurs",
-      "what_our_users_say": "Ce que disent nos utilisateurs",
-        "real_feedback_desc": "Des retours d'expérience de vrais utilisateurs ayant utilisé notre plateforme avec succès. Rejoignez dès aujourd'hui des milliers d'investisseurs satisfaits."
+  "crypto_investment_plans": "Plans d'investissement crypto",
+  "invest_in_your_future": "Investissez dans votre avenir",
+  "investment_header_desc": "Choisissez un plan et commencez à gagner des revenus passifs avec des investissements crypto sécurisés.",
+  "starter_plan": "Plan de démarrage",
+  "growth_plan": "Plan de croissance",
+  "roi_10": "10% ROI",
+  "duration_3_days": "Durée : 3 jours",
+  "basic_support": "Support de base",
+  "priority_support": "Support prioritaire",
+  "roi_in_days": "{{roi}}% ROI en {{days}} jours",
+  "live_example_earnings": "Exemple de gains en direct",
+  "live": "En direct",
+  "expected": "Attendu",
+  "invest_now": "Investir maintenant"
 
 
 

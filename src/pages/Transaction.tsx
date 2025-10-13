@@ -10,7 +10,6 @@ import Layout from "@/components/Layout";
 import { QRCodeSVG } from "qrcode.react";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
-import { set } from "date-fns";
 
 // Define the structure for a cryptocurrency
 interface Cryptocurrency {

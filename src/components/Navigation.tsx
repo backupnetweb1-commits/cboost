@@ -115,7 +115,7 @@ const Navigation = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`relative px-3 py-2 rounded-md text-sm font-medium transition-colors ${location.pathname === item.href ? 'bg-primary text-primary-foreground' : 'text-foreground hover:bg-muted'}`}
+                className={`relative px-3 py-2 rounded-md text-sm font-medium transition-colors ${location.pathname === item.href ? ' text-primary underline' : 'text-foreground hover:bg-muted'}`}
               >
                 {item.name}
                 {item.important && <Badge variant="destructive" className="absolute -top-1 -right-1 p-0.5 h-4 w-4 justify-center text-xs">!</Badge>}

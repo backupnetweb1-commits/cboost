@@ -1,3 +1,4 @@
+import { set } from "date-fns";
 import { platform } from "os";
 import { useEffect, useState, useCallback } from "react";
 
@@ -35,6 +36,14 @@ export const useFeedback = () => {
   const [updating, setUpdating] = useState(false);
   const [updated, setUpdated] = useState(false);
   const [updateError, setUpdateError] = useState<string | null>(null);
+  const [fetchingPayout, setFetchingPayout] = useState(false);
+  const [payout, setPayout] = useState<number | null>(null);
+  const [payoutError, setPayoutError] = useState<string | null>(null);
+  const [creatingPayout, setCreatingPayout] = useState(false);
+  const [createdPayout, setCreatedPayout] = useState(false);
+  const [createPayoutError, setCreatePayoutError] = useState<string | null>(null);
+  const [deletingPayout, setDeletingPayout] = useState(false)
+  const [deletedPayout, setDeletedPayout]  = useState(false)
 
   /**
    * Fetches testimonials from the API.
@@ -159,13 +168,102 @@ export const useFeedback = () => {
       setDeleting(false);
     }
   }
+// fetch payout
+const fetchPayout = async () => {
+  setFetchingPayout(true);
+  setPayoutError(null);
+  try {
+
+    const response = await fetch('https://crypto-invest-backend-1.onrender.com/api/v1/paidoutusers',
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    if (!response.ok) {
+            console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
+
+      throw new Error(`Failed to fetch payout. Status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    console.log('Payout ///////////////////////',data.data)
+    setPayout(data.data);
+    setFetchingPayout(false);
+    } catch (err) {
+      setFetchingPayout(false)
+      setPayoutError(err instanceof Error ? err.message : "Failed to fetch payout.")
+
+    }
+    
+}
+
+const createPayout = async (payload) => {
+  setCreatingPayout(true);
+  setCreatePayoutError(null);
+  console.log('createPayout', payload)
+  try {
+    const response = await fetch('https://crypto-invest-backend-1.onrender.com/api/v1/paidoutuser',
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+    if (!response.ok) {
+      throw new Error(`Failed to create payout. Status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log('Created Payout',data)
+    setCreatingPayout(false);
+    setCreatedPayout(true);
+    } catch (err) {
+      setCreatingPayout(false)
+      setCreatePayoutError(err instanceof Error ? err.message : "Failed to create payout.")
+      }
+
+}
+
+// delete payment
+
+const deletePayOut = async (id: string) => {
+  setDeletingPayout(true)
+  setDeleteError(null)
+  try {
+    const response = await fetch(`https://crypto-invest-backend-1.onrender.com/api/v1/paidoutuser/${id}`,
+      {
+        method: 'DELETE',
+        headers :{
+             "Content-Type": "application/json",
+ 
+        }
+      }
+    )
+
+    if(!response.ok){
+      throw Error('Error deleting payout')
+    }
+  setDeletingPayout(false)
+  setDeletedPayout(true)
+  return true;
+  } catch (er){
+    setCreatePayoutError(er)
+    setDeletingPayout(false)
+    setDeletedPayout(false)
+    return false;
+  }
+
+}
 
 
 
   // Fetch the testimonials when the component mounts.
   useEffect(() => {
     fetchTestimonials();
+    fetchPayout();
   }, [fetchTestimonials]); // The dependency is a stable function thanks to useCallback.
 
-  return { testimonials, isLoading, error, addTestimonial, deleteTestimonial, deleting, deleted, deleteError, updateTestimonial, updating, updated, updateError };
+  return { testimonials, isLoading, error, addTestimonial, deleteTestimonial, deleting, deleted, deleteError, updateTestimonial, updating, updated, updateError, payout, fetchingPayout, payoutError, createPayout, creatingPayout, createdPayout, createPayoutError, deletePayOut, deletingPayout, deletedPayout };
 };

@@ -136,7 +136,21 @@
     "last_name": "Nachname",
     "create_account": "Konto erstellen",
     "welcome_back": "Willkommen zurück",
-    "login": "Anmelden"
+    "login": "Anmelden",
+      "crypto_investment_plans": "Krypto-Investitionspläne",
+  "invest_in_your_future": "Investiere in deine Zukunft",
+  "investment_header_desc": "Wähle einen Plan und beginne mit sicheren Krypto-Investitionen passives Einkommen zu erzielen.",
+  "starter_plan": "Starter-Plan",
+  "growth_plan": "Wachstumsplan",
+  "roi_10": "10% Rendite",
+  "duration_3_days": "Dauer: 3 Tage",
+  "basic_support": "Basis-Support",
+  "priority_support": "Prioritäts-Support",
+  "roi_in_days": "{{roi}}% Rendite in {{days}} Tagen",
+  "live_example_earnings": "Live Beispiel Einnahmen",
+  "live": "Live",
+  "expected": "Erwartet",
+  "invest_now": "Jetzt investieren"
   
     
 }

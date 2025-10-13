@@ -61,7 +61,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             });
         }
     }, []);
-
+    
     // The sign-in logic, modified to use cookies
     const signIn = async (email: string, password: string) => {
         setAuthState(prev => ({ ...prev, loading: true, error: null }));
@@ -71,15 +71,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
-
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Login failed');
             }
-
             const data = await response.json();
             // Set the user data in a cookie instead of localStorage
-            Cookies.set('user', JSON.stringify(data.data), { expires: 7 }); // Expires in 7 days
+            Cookies.set('user', JSON.stringify(data.data), { expires: 0.02 }); // Expires in 7 days
             setAuthState({ user: data.data, loading: false, error: null });
         } catch (error: any) {
             setAuthState({ user: null, loading: false, error: error.message });
@@ -102,7 +100,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Registration failed');
             }
-
             const data = await response.json();
             Cookies.set('user', JSON.stringify(data.data), { expires: 7 });
             setAuthState({ user: data.data, loading: false, error: null });

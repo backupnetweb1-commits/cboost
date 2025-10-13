@@ -20,7 +20,7 @@ interface Testimonial {
 }
 
 interface PaidUser {
-  id: number;
+  id: any;
   name: string;
   amount: number;
   plan: string;
@@ -31,7 +31,7 @@ interface PaidUser {
 const Feedback = () => {
   const [isEditing, setIsEditing] = useState(false);
   const { t } = useTranslation();
-  const { isLoading, error, testimonials:feedback , addTestimonial} = useFeedback();
+  const { isLoading, error, testimonials:feedback , payout, fetchingPayout, payoutError} = useFeedback();
 
   const testimonials:Testimonial[] = feedback || [
     {
@@ -58,7 +58,7 @@ const Feedback = () => {
 
   console.log('FeeeeeeeeeeeeeeeeBbbbbbbbbbbbbbbbbaaaaaaaaaaaaacccccccccccccckkkkkkkkkk',feedback)
 
-  const todaysPaidUsers: PaidUser[] = [
+  const todaysPaidUsers: PaidUser[] = payout || [
     { id: 1, name: "Alex Thompson", amount: 175, plan: "Plan 2", date: "2024-01-16", time: "09:15 AM" },
     { id: 2, name: "Maria Garcia", amount: 1150, plan: "Plan 4", date: "2024-01-16", time: "09:32 AM" },
     { id: 3, name: "David Kim", amount: 75, plan: "Plan 1", date: "2024-01-16", time: "10:07 AM" },
@@ -95,12 +95,12 @@ const Feedback = () => {
       default: return "??";
     }
   };
-if(error){
+if(error || payoutError){
   return (
     <Layout>
       <div className="min-h-screen py-12 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-muted-foreground">{error}</p>
+          <p className="text-muted-foreground">{error || payoutError}</p>
           {/* <Button onClick={() => addTestimonial({})}>Try Again</Button> */}
         </div>
       </div>
@@ -108,7 +108,7 @@ if(error){
   )
 }
 
- if (isLoading) {
+ if (isLoading || fetchingPayout  ) {
     return (
       <Layout>
         <div className="min-h-screen py-12 flex items-center justify-center">
@@ -289,7 +289,7 @@ if(error){
                           {/* <td className="py-3 px-2 text-sm text-muted-foreground">{user.time}</td> */}
                           <td className="py-3 px-2">
                             <Button size="sm" variant="outline" asChild>
-                              <a href={`https://etherscan.io/tx/0x${user.id}`} target="_blank" rel="noopener noreferrer">
+                              <a href={`${user?.proof}`} target="_blank" rel="noopener noreferrer">
                                 <ExternalLink className="w-3 h-3 mr-1" />
                                 {t('proof_of_payout')}
                               </a>

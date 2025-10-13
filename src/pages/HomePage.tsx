@@ -128,7 +128,7 @@ const HomePage = () => {
         </section>
 
         {/* Important Categories Section */}
-        <section className="py-20 bg-gradient-card/30">
+        <section className="py-20 bg-black/70">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -207,7 +207,7 @@ const HomePage = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20">
+        <section className="py-20 bg-black/70 ">
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <Card className="bg-gradient-crypto border-border/50 shadow-premium">
               <CardContent className="p-12">

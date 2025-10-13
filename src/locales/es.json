@@ -136,6 +136,20 @@
   "last_name": "Apellido",
   "create_account": "Crear cuenta",
   "welcome_back":"¡Bienvenido de nuevo!",
-  "login": "Iniciar sesión"
+  "login": "Iniciar sesión",
+  "crypto_investment_plans": "Planes de inversión en criptomonedas",
+  "invest_in_your_future": "Invierte en tu futuro",
+  "investment_header_desc": "Elige un plan y comienza a ganar ingresos pasivos con inversiones seguras en criptomonedas.",
+  "starter_plan": "Plan Inicial",
+  "growth_plan": "Plan de Crecimiento",
+  "roi_10": "10% ROI",
+  "duration_3_days": "Duración: 3 días",
+  "basic_support": "Soporte Básico",
+  "priority_support": "Soporte Prioritario",
+  "roi_in_days": "{{roi}}% ROI en {{days}} días",
+  "live_example_earnings": "Ejemplo de ganancias en vivo",
+  "live": "En vivo",
+  "expected": "Esperado",
+  "invest_now": "Invertir ahora"
   
 }
